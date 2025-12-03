@@ -415,14 +415,6 @@ curl -X POST http://localhost:5000/api/auth/login \
   -d '{"email":"admin@coursemaster.com","password":"Admin@123456"}'
 ```
 
-## 📄 License
-
-This project is created as part of a technical assessment for MISUN Academy.
-
-## 👨‍💻 Developer
-
-Built with ❤️ as a technical assessment project.
-
 ---
 
 For any questions or issues, please create an issue in the GitHub repository.
