@@ -41,7 +41,7 @@ const seedData = async () => {
         price: 4999,
         category: 'Programming',
         tags: ['web', 'javascript', 'react', 'node'],
-        thumbnail: 'https://via.placeholder.com/400x300?text=Web+Development',
+        thumbnail: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop',
         syllabus: [
           {
             moduleTitle: 'Introduction to Web Development',
@@ -114,7 +114,7 @@ const seedData = async () => {
         price: 3999,
         category: 'Design',
         tags: ['ui', 'ux', 'figma', 'design'],
-        thumbnail: 'https://via.placeholder.com/400x300?text=UI+UX+Design',
+        thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop',
         syllabus: [
           {
             moduleTitle: 'Design Fundamentals',
@@ -151,7 +151,7 @@ const seedData = async () => {
         price: 5999,
         category: 'Data Science',
         tags: ['python', 'data', 'ml', 'analytics'],
-        thumbnail: 'https://via.placeholder.com/400x300?text=Data+Science',
+        thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
         syllabus: [
           {
             moduleTitle: 'Python Basics for Data Science',
@@ -188,7 +188,7 @@ const seedData = async () => {
         price: 2999,
         category: 'Marketing',
         tags: ['seo', 'marketing', 'social media', 'content'],
-        thumbnail: 'https://via.placeholder.com/400x300?text=Digital+Marketing',
+        thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
         syllabus: [
           {
             moduleTitle: 'Introduction to Digital Marketing',
@@ -225,7 +225,7 @@ const seedData = async () => {
         price: 3499,
         category: 'Business',
         tags: ['business', 'strategy', 'management', 'leadership'],
-        thumbnail: 'https://via.placeholder.com/400x300?text=Business+Strategy',
+        thumbnail: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop',
         syllabus: [
           {
             moduleTitle: 'Business Basics',

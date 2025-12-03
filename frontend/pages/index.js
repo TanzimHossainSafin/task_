@@ -18,14 +18,39 @@ export default function Home() {
     sort: 'createdAt',
     order: 'desc'
   });
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCourses(filters));
   }, [dispatch, filters]);
 
+  useEffect(() => {
+    // Get search suggestions when user types
+    if (filters.search.length > 0) {
+      const suggestions = courses.filter(course => 
+        course.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+        course.category.toLowerCase().includes(filters.search.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(filters.search.toLowerCase())
+      );
+      setSearchSuggestions(suggestions.slice(0, 5)); // Show top 5 suggestions
+      setShowSuggestions(true);
+    } else {
+      setSearchSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [filters.search, courses]);
+
   const handleSearch = (e) => {
     e.preventDefault();
+    setShowSuggestions(false);
     dispatch(fetchCourses(filters));
+  };
+
+  const handleSuggestionClick = (course) => {
+    setFilters({ ...filters, search: course.title });
+    setShowSuggestions(false);
+    router.push(`/courses/${course._id}`);
   };
 
   return (
@@ -78,13 +103,44 @@ export default function Home() {
       <section id="courses" className="container mx-auto px-4 py-12">
         <div className="card mb-8">
           <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <input
-              type="text"
-              placeholder="Search courses..."
-              className="input"
-              value={filters.search}
-              onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-            />
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search courses..."
+                className="input"
+                value={filters.search}
+                onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+                onFocus={() => filters.search && setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+              />
+              {/* Search Suggestions Dropdown */}
+              {showSuggestions && searchSuggestions.length > 0 && (
+                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+                  {searchSuggestions.map((course) => (
+                    <div
+                      key={course._id}
+                      onClick={() => handleSuggestionClick(course)}
+                      className="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b last:border-b-0"
+                    >
+                      <div className="flex items-center gap-3">
+                        <img 
+                          src={course.thumbnail} 
+                          alt={course.title}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                        <div className="flex-1">
+                          <p className="font-semibold text-sm">{course.title}</p>
+                          <p className="text-xs text-gray-600">
+                            {course.category} • {course.instructor}
+                          </p>
+                        </div>
+                        <span className="text-primary font-bold text-sm">৳{course.price}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <select
               className="input"
               value={filters.category}
@@ -134,7 +190,7 @@ export default function Home() {
                   <p className="text-gray-600 mb-4 line-clamp-2">{course.description}</p>
                   <p className="text-sm text-gray-500 mb-4">By {course.instructor}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-primary">₹{course.price}</span>
+                    <span className="text-2xl font-bold text-primary">৳{course.price}</span>
                     <Link href={`/courses/${course._id}`} className="btn btn-primary">
                       View Details
                     </Link>
